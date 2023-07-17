@@ -32,8 +32,7 @@ void setup() {
 
 void loop() {
   // Delay between measurements.
-  // delay(60000);
-  delay(1000);
+  delay(30000);
   
   DynamicJsonDocument doc(1024);
   JsonArray array = doc.to<JsonArray>();
@@ -50,9 +49,9 @@ void loop() {
   else {
     JsonObject temperature = doc.createNestedObject();
     
-    temperature["sensorType"] = "temperature";
-    temperature["sensorValue"] = event.temperature;
-    temperature["sensorMeasurement"] = "celcius";
+    temperature["name"] = "temperature";
+    temperature["value"] = event.temperature;
+    temperature["measurement"] = "celcius";
 
     // array.add(temperature);`
     // Serial.println(F("°C"));
@@ -66,9 +65,9 @@ void loop() {
   else {
     JsonObject humidity = doc.createNestedObject();
 
-    humidity["sensorType"] = "humidity";
-    humidity["sensorValue"] = event.relative_humidity;
-    humidity["sensorMeasurement"] = "percent";
+    humidity["name"] = "humidity";
+    humidity["value"] = event.relative_humidity;
+    humidity["measurement"] = "percent";
 
     // array.add(humidity);
     // Serial.print(event.relative_humidity);
@@ -78,30 +77,30 @@ void loop() {
   if (isMoved == 1) {
     JsonObject moved = doc.createNestedObject();
 
-    moved["sensorType"] = "moved";
-    moved["sensorValue"] = true;
-    moved["sensorMeasurement"] = "bool";
+    moved["name"] = "moved";
+    moved["value"] = 1;
+    moved["measurement"] = "bool";
   } else {
     JsonObject moved = doc.createNestedObject();
 
-    moved["sensorType"] = "moved";
-    moved["sensorValue"] = false;
-    moved["sensorMeasurement"] = "bool";
+    moved["name"] = "moved";
+    moved["value"] = 0;
+    moved["measurement"] = "bool";
   }
 
 
   if (isSounded == 0) {
     JsonObject sounded = doc.createNestedObject();
 
-    sounded["sensorType"] = "sound";
-    sounded["sensorValue"] = true;
-    sounded["sensorMeasurement"] = "bool";
+    sounded["name"] = "sound";
+    sounded["value"] = 1;
+    sounded["measurement"] = "bool";
   } else {
     JsonObject sounded = doc.createNestedObject();
 
-    sounded["sensorType"] = "sound";
-    sounded["sensorValue"] = false;
-    sounded["sensorMeasurement"] = "bool";
+    sounded["name"] = "sound";
+    sounded["value"] = 0;
+    sounded["measurement"] = "bool";
   }
 
   serializeJson(array, Serial);
