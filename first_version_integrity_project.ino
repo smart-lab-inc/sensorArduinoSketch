@@ -32,7 +32,7 @@ void setup() {
 
 void loop() {
   // Delay between measurements.
-  delay(30000);
+  delay(1000);
   
   DynamicJsonDocument doc(1024);
   JsonArray array = doc.to<JsonArray>();
